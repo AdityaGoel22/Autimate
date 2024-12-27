@@ -1,6 +1,6 @@
-# autism
+# Autimate
 
-A new Flutter project.
+A Flutter project for helping doctors and parents for detecting and helping children with ASD.
 
 ## Getting Started
 
