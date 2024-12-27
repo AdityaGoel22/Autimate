@@ -1,0 +1,73 @@
+plugins {
+    id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    // END: FlutterFire Configuration
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    namespace "com.example.autism"
+    compileSdkVersion flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        // Specify your unique Application ID.
+        applicationId "com.example.autism"
+        minSdkVersion 23
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+
+        // Ensure multiDex is enabled if needed
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            // Add your own signing config for the release build.
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    // Firebase dependencies, managed through the BoM (Bill of Materials)
+    implementation platform('com.google.firebase:firebase-bom:32.1.0') // Use the latest version
+
+    // Add only the Firebase products you need
+    implementation 'com.google.firebase:firebase-firestore' // Firestore dependency
+
+    // Other dependencies can go here
+}
+
+// Apply the Google Services plugin at the bottom of the file
+apply plugin: 'com.google.gms.google-services'
